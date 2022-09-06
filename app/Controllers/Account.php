@@ -14,30 +14,45 @@ class Account extends BaseController {
 
     public function login() {
 
-        if (isset($_GET['username']) && isset($_GET['pwd'])) {
+        if (loggedIn()) {
+            
+            template('page-main-content/monitoring', ['currentPage' => 'monitoring']);
 
-            $username = $this->validate(get('username'));
+        } else {
+
+            if (isset($_POST['username']) && isset($_POST['pwd'])) {
     
-            $pwd = $this->validate(get('pwd'));
+                $username = $this->validate($_POST['username']);
+        
+                $pwd = $this->validate($_POST['pwd']);
+        
+                $model = model(User::class);
+        
+                if ($model->validUser($username, $pwd)) {
     
-            $model = model(User::class);
+                    $_SESSION[session_id()]['username'] = $username;
+            
+                    template('page-main-content/monitoring', ['currentPage' => 'monitoring']);
     
-            if ($model->validUser($username, $pwd)) {
-
-                echo 'asdasd';
-
-                $_SESSION[session_id()]['username'] = $username;
-
+                }
+    
+            } else {
+    
+                template('account/login', ['currentPage' => 'login']);
+    
             }
 
         }
 
-        template('account/login', ['currentPage' => 'login']);
-
     }
 
-    public function loginCheck() {
+    public function logout() {
 
+            session_unset();
+
+            session_destroy();
+
+            $this->login();
 
     }
 

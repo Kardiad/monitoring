@@ -23,9 +23,11 @@ class BaseController {
 
             new Monitoring('monitoring');
 
-        }
+        } else {
 
-        new Account('login');
+            new Account('login');
+
+        }
 
     }
 

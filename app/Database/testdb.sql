@@ -8,4 +8,6 @@ create table users (
   pwd varchar(20)
 );
 
-INSERT INTO users(username, pwd) VALUES ('user1', 'Aqwe1!');
+INSERT INTO users(username, pwd) VALUES ('asd', 'asd!');
+
+SELECT * FROM users;

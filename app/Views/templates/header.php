@@ -137,7 +137,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     <?php $currentPage = esc('currentPage'); if (isset($currentPage)): ?>
 
                     <?php //var_dump($_SESSION); ?>
-                    <?php //var_dump($_GET)?>
 
                         <!-- BEGIN Page Header-->
                         

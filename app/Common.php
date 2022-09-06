@@ -148,12 +148,12 @@ if (! function_exists('loggedIn')) {
     function loggedIn() {
 
         if (empty($_SESSION[session_id()]['username'])) {
-    
-            return true;
+
+            return false;
         
         }
-
-        return false;
+    
+        return true;
 
     }
 

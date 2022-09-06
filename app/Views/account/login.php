@@ -6,7 +6,7 @@
                                 <div id="panel-1" class="card rounded-plus bg-faded shadow">
                                     <div class="panel-container show">
                                         <div class="panel-content">
-                                            <form class="px-3" action="?login" method="get">
+                                            <form class="px-3" action="?login" method="post">
                                                 <div class="form-group mt-3 mb-6">
                                                     <label class="form-label" for="simpleinput">Usuario</label>
                                                     <input type="text" name="username" id="simpleinput" class="form-control rounded-pill">

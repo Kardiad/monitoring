@@ -10,12 +10,15 @@ use \Controllers\Taptab;
 class Routes {
 
     public function __get($route) {
-    
+        
         switch($route) {
 
             case 'login':
-            case 'logout':
                 new Account('login');
+                break;
+
+            case 'logout':
+                new Account('logout');
                 break;
 
             case 'monitoring':

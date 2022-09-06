@@ -24,25 +24,13 @@ ini_set('session.gc_maxlifetime', 3600);
 
 session_start();
 
-$now = time();
-
-if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
-    // this session has worn out its welcome; kill it and start a brand new one
-    session_unset();
-    session_destroy();
-    session_start();
-}
-
-// either new or old, it should live at most for another hour
-$_SESSION['discard_after'] = $now + 3600;
-
 // start app
 $routes = new Config\Routes;
 
 //var_dump($_GET);
 //var_dump($_SESSION);
 
-$url = array_keys($_GET)[0] ?? 'monitoring';
+$url = array_keys($_GET)[0] ?? 'index';
 
 $routes->$url;
 
