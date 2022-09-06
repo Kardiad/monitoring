@@ -1,0 +1,103 @@
+footer {
+  position: fixed;
+  bottom: 0;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.graph {
+    width: 100%;
+    max-height: 200px;
+}
+
+.modal-position {
+    position: absolute;
+    right: 50% !important;
+}
+
+.user-icon {
+  width: 2rem;
+  display: block;
+  border-radius: 5.5rem;
+  transition: all 1s ease;
+}
+
+.color-danger {
+  color: var(--danger);
+}
+
+.color-warning {
+  color: var(--warning);
+}
+
+.color-success {
+  color: var(--success);
+}
+
+.color-gray-light {
+  color: var(--gray-light);
+}
+
+#js_nav_tabs .nav-link {
+  padding: 0;
+  margin: 0.5rem 1.125rem;
+  min-width: 5.5rem;;
+}
+
+.nav-link .fal::after {
+  content: "";
+  position: absolute;
+  display: block;
+  margin-left: 2.2rem;
+  margin-top: 0.8rem;
+  width: 0px;
+  height: 0px;
+  color: var(--green);
+  background-color: var(--green);
+  opacity: 60%;
+  border-radius: 10px;
+  transition: all 1s ease;
+}
+
+.nav-link.active .fal::after {
+  width: 10px;
+  height: 10px;
+  transition: all 0.5s ease;
+}
+
+.nav-link:not(.fal) {
+  color: var(--gray);
+  transition: all 1s ease;
+}
+
+.nav-link:hover:not(.fal), .nav-link.active:not(.fal) {
+  color: var(--dark);
+  transition: all 0.5s ease;
+}
+
+.w-3rem {
+  width: 3rem;
+}
+  
+.user-menu {
+  position: absolute;
+  top: 100%;
+  z-index: 2000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.3125rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
