@@ -2,8 +2,7 @@
 
 namespace Models;
 
-use mysqli;
-use mysqli_sql_exception;
+use PDO;
 
 class BaseModel {
 
@@ -17,31 +16,38 @@ class BaseModel {
 
     private $db = 'monitoringtest';
 
-    private $conn;
+    protected $conn;
 
     /**
      * ---
      * BASE MODEL CONSTRUCT
      * -
      * 
-     * Attempts to connect to database through MySQLi
+     * Attempts to connect to database through PDO
      */
     public function __construct() {
 
-        $this->conn = new mysqli($this->host, $this->user, $this->pwd, $this->db);
-
-        if($this->conn->connect_error) {
-
-            die("Connection to database failed: " . $this->conn->connect_error);
+        try{
+            $this->conn = new PDO('mysql:dbname='.$this->db.';host:'.$this->host, $this->user, $this->pwd);
+        }catch(PDOException $e){
+            die("Connection to database failed: " . $e->getMessage());
 
         }
 
     }
 
-    function prepare($sql) {
-
-        return $this->conn->prepare($sql);
-        
+    /**
+     * --
+     * FUNCION PARA LANZAR CONSULTAS PRECONSTRUIDAS
+     * -
+     * 
+     * Esta funcion lo que hace es coger una consulta y con un array
+     * de params que son string te devuelve el resultado
+    */
+    function prepara($sql, $params) {
+         $stmt = $this->conn->prepare($sql);
+         $stmt->execute($params);
+         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

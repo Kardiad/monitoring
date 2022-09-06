@@ -1,7 +1,7 @@
 <?php
 
 namespace Controllers;
-
+use Models\User;
 
 
 class Account extends BaseController {
@@ -26,9 +26,11 @@ class Account extends BaseController {
         
                 $pwd = $this->validate($_POST['pwd']);
         
-                $model = model(User::class);
+                $modelUser = new User();
+
+                $user = $modelUser->getUser($username, $pwd);
         
-                if ($model->validUser($username, $pwd)) {
+                if (!empty($user)) {
     
                     $_SESSION[session_id()]['username'] = $username;
             
