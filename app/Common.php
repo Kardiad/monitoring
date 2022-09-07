@@ -1,5 +1,8 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 if (! function_exists('view')) {
     /**
      * ---------------------------------------------------------------
@@ -70,14 +73,11 @@ if (! function_exists('model')) {
      * char '\' and creating then a string starting with the models
      * namespace followed by the last element of the array.
      * 
-     * Would be better to just receive the single name of the Model
-     * like: 'ModelName' ? Yes. Am I going to change it? Nope.
-     * 
      * @param string $model
      * 
      * @return instance
      * 
-     * @template object of Model
+     * @template object of Models
      */
     function model($model) {
 
@@ -147,7 +147,7 @@ if (! function_exists('loggedIn')) {
 
     function loggedIn() {
 
-        if (empty($_SESSION[session_id()]['username'])) {
+        if (empty($_SESSION[session_id()]['user']['username'])) {
 
             return false;
         
@@ -155,6 +155,119 @@ if (! function_exists('loggedIn')) {
     
         return true;
 
+    }
+
+}
+
+if (! function_exists('randomChar')) {
+
+    function randomChar() {
+
+        return chr(random_int(65, 90));
+
+    }
+
+}
+
+if (! function_exists('generateCode')) {
+
+    function generateCode() {
+
+        $code = "";
+
+        for ($i = 0; $i < 5; $i++) {
+
+            $code = $code . random_int(1, 9) . randomChar();
+
+        }
+
+        return $code;
+
+    }
+
+}
+
+
+if (! function_exists('pwdReset')) {
+
+    function pwdReset() {
+
+        $mail = new PHPMailer();
+
+        $from = 'erica.pastor@asesormasmovil.es';
+
+        $pwd = 'Aqws*5656';
+
+        $to = $_POST['email'];
+
+        $user = $_POST['username'];
+
+        $code = generateCode();
+
+        try {
+
+            //Server settings
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            
+            $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
+            
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            
+            $mail->Username   = $from;                                    //SMTP username
+
+            $mail->Password = $pwd;
+            
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+            
+            $mail->Port       = 587;         
+            
+            $mail->CharSet    = PHPmailer::CHARSET_UTF8;
+            
+            //Recipients
+            $mail->setFrom($from, 'Recuperación de contraseña');
+            
+            $mail->addAddress($to);                                     // address of destiny
+            
+            $mail->addReplyTo($from, 'Information');
+
+            $mail->isHTML(true);
+
+            $mail->Subject = 'Recuperación de contraseña';
+
+            $mail->Body = "
+            <!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>
+                        Estilos correo
+                    </title>
+                    <meta name='description' content='RowReorder'>
+                    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui'>
+                </head>
+            </head>
+            <body>
+                <h1>Hola, $user</h1>
+                <p>Copia y pega <a href='http://localhost/monitoring/?newPassword&code=$code'>aquí</a> el siguiente codigo:</p>
+                <h3 class>$code</h3>
+            </body>
+            </html>
+            ";
+
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+
+            setcookie('temporaryCode', $code, time() + 600);
+
+        } catch (Exception $e) {
+
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+        }
     }
 
 }

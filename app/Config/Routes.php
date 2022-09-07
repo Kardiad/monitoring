@@ -14,15 +14,14 @@ class Routes {
         switch($route) {
 
             case 'login':
-                new Account('login');
-                break;
-
             case 'logout':
-                new Account('logout');
+            case 'pwdReset':
+            case 'newPassword':
+                new Account($route);
                 break;
 
             case 'monitoring':
-                new Monitoring('monitoring');
+                new Monitoring($route);
                 break;
 
             case 'taptab':

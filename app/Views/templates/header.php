@@ -149,7 +149,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <h1><small class="m-0"><b>Monitoring</b></small></h1>
                                 </div>
                             </div>
-                            <div class="<?php if ($currentPage === 'login') { echo 'd-none';} else { echo 'd-flex'; } ?> justify-content-between mx-5 nav-xl nav-lg nav-md nav" id="navbarSupportedContent">
+                            <div class="<?php if ($currentPage === 'monitoring' or $currentPage === 'taptab') { echo 'd-flex';} else { echo 'd-none'; } ?> justify-content-between mx-5 nav-xl nav-lg nav-md nav" id="navbarSupportedContent">
                                 <div class="d-flex" id="js_nav_tabs">
                                     <a href="?monitoring" class="nav-link cursor-pointer <?php if ($currentPage === 'monitoring') { echo 'active'; } ?>" id="monitoring" role="tab" for="page-main-content">
                                         <i class="fal fa-disc-drive nav-icon d-block"></i>

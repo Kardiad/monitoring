@@ -1,3 +1,11 @@
+html body a, html body a:visited {
+  color: var(--secondary);
+}
+
+html body a:hover {
+  color: var(--dark);
+}
+
 footer {
   position: fixed;
   bottom: 0;
@@ -52,7 +60,7 @@ header {
   content: "";
   position: absolute;
   display: block;
-  margin-left: 2.2rem;
+  margin-left: 2.5rem;
   margin-top: 0.8rem;
   width: 0px;
   height: 0px;

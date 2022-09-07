@@ -6,7 +6,7 @@
                                 <div id="panel-1" class="card rounded-plus bg-faded shadow">
                                     <div class="panel-container show">
                                         <div class="panel-content">
-                                            <form class="px-3" action="?login" method="post">
+                                            <form class="px-3 px-sm-4 px-md-6" action="?login" method="post">
                                                 <div class="form-group mt-3 mb-6">
                                                     <label class="form-label" for="simpleinput">Usuario</label>
                                                     <input type="text" name="username" id="simpleinput" class="form-control rounded-pill">
@@ -15,9 +15,9 @@
                                                     <label class="form-label" for="example-password">Password</label>
                                                     <input type="password" name="pwd" id="example-password" class="form-control rounded-pill" value="">
                                                 </div>
-                                                <div class="form-group mb-3 col-7">
+                                                <div class="form-group mb-3 mx-auto col-7">
                                                     <button class="btn btn-primary btn-block btn-lg waves-effect waves-themed mb-3">Entrar</button>
-                                                    <a href="?pwdForgotten">¿Olvidaste tu contraseña?</a>
+                                                    <a href="?pwdReset">¿Olvidaste tu contraseña?</a>
                                                 </div>
                                             </form>
                                         </div>

@@ -19,6 +19,8 @@ define('APPDIR', __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR);
 
 require_once(APPDIR . 'Config/Config.php');
 
+require 'vendor/autoload.php';
+
 // server should keep session data for AT LEAST 1 hour
 ini_set('session.gc_maxlifetime', 3600);
 
@@ -29,6 +31,7 @@ $routes = new Config\Routes;
 
 //var_dump($_GET);
 //var_dump($_SESSION);
+//var_dump($_COOKIE);
 
 $url = array_keys($_GET)[0] ?? 'index';
 

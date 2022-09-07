@@ -2,6 +2,15 @@
 
 namespace Controllers;
 
+/**
+ * ---
+ * class Monitoring
+ * -
+ * 
+ * Contiene los metodos de gestion de la vista de monitoring y
+ * de los graficos de la misma, obteniendo datos del modelo
+ * ServerData
+ */
 class Monitoring extends Basecontroller {
 
     public function __construct($route) {
@@ -12,16 +21,15 @@ class Monitoring extends Basecontroller {
 
     public function monitoring() {
 
-        $data = [
-            'currentPage' => 'monitoring'
-        ];
-
         $this->generarDiscos();
+        
         $this->generarDatos();
+        
         $this->numeroProblemas();
+        
         $this->graficaServicios();
 
-        template('page-main-content/monitoring', $data);
+        template('main.content/monitoring', ['currentPage' => 'monitoring']);
 
     }
 

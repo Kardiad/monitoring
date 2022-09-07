@@ -16,7 +16,7 @@ class Taptab extends BaseController {
             'currentPage' => 'taptab'
         ];
 
-        template('page-main-content/taptab', $data);
+        template('main.content/taptab', $data);
 
     }
 

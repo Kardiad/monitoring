@@ -67,7 +67,7 @@ const lanzamientoInicio = () =>{
 lanzamientoInicio();
 setInterval(()=>{
     lanzamientoInicio(); 
-}, 10000)
+}, 30000)
 //Fin autolanzador de las funcione de inicio
 
 /*
@@ -122,18 +122,19 @@ const datosModal = async(servidor) =>{
     };
     const otros = {
         alertas: datos.alertas,
-        servicios: datos.servicios
+        servicios: datos.servicios,
+        graficos: datos.graficos
     }
     return {config, otros};
 }
-
+var ctx = null;
 const renderModales = async(idServidor) =>{
-    const servidor = parseInt(idServidor);
-    const config = await datosModal(servidor);
-    //console.log(servidor);
-    var ctx = document.getElementById('pieChart-'+servidor).getContext('2d');
+    const config = await datosModal(idServidor);
+    const div = document.getElementById('pie-'+idServidor);
+    const divChart = document.getElementById('pieChart-'+idServidor);
+    ctx = divChart.getContext('2d');
     new Chart(ctx, config.config);
-    const alertas = document.getElementById('alertas');
+    const alertas = document.getElementById('alertas'+idServidor);
     const renderAlertas = config.otros.alertas;
     alertas.innerHTML = '';
     renderAlertas.forEach((ele)=>{
@@ -144,7 +145,7 @@ const renderModales = async(idServidor) =>{
             <td><p>${ele.tiempo}</p></td>                                    
         </tr>`;
     })
-    const servicios = document.getElementById('servicios');
+    const servicios = document.getElementById('servicios'+idServidor);
     const renderServicios = config.otros.servicios;
     servicios.innerHTML='';
     let cont =1;
@@ -163,7 +164,9 @@ const renderModales = async(idServidor) =>{
             const idServicio = event.target.attributes[1].value;
             const idServidor = servicios.attributes[2].value;
             let config = await configPingServicio(idServicio, idServidor);
-            new Chart($("#areaChart > canvas").get(0).getContext("2d"), config);
+            console.log(document.getElementById(`chart-${idServidor.replace('servidor-', '')}`));
+            let ctx = document.getElementById(`chart-${idServidor.replace('servidor-', '')}`).getContext('2d');
+            new Chart(ctx, config);
         });
     })
 }
@@ -171,7 +174,6 @@ const renderModales = async(idServidor) =>{
 btnModal.forEach((ele)=>{
     ele.addEventListener('click', ()=>{
         const idServidor = ele.attributes[4].value;
-        console.log(idServidor);
         renderModales(idServidor);
     });
 })
@@ -205,7 +207,6 @@ const configPingServicio = async(servicio, servidor)=>{
     const conn = await fetch(url+'?monitoring&datos=5&servidor='+servidor+'&servicio='+servicio);
     const json = await conn.text();
     const data = JSON.parse(json.split('<')[0]);
-    //console.log(data);
     var config = {
         type: 'line',
         data:
@@ -272,13 +273,15 @@ const configPingServicio = async(servicio, servidor)=>{
 */
 
 cerrarModal.forEach((ele)=>{
+    const id = ele.getAttribute('data-server');
     ele.addEventListener('click', ()=>{
-        const alertas = document.getElementById('alertas');
-        const servicios = document.getElementById('servicios');
-        const graficos = document.getElementById('areaChart');
+        const alertas = document.getElementById('alertas'+id);
+        const servicios = document.getElementById('servicios'+id);
+        const graficos = document.getElementById('areaChart-'+id);
         alertas.innerHTML='';
         servicios.innerHTML = '';
         graficos.innerHTML = '<canvas class="chartjs-render-monitor graph"></canvas>';
+        
     })
 })
 
@@ -286,20 +289,15 @@ cerrarModal.forEach((ele)=>{
 window.addEventListener('click', (event)=>{
     const clase = event.target.getAttribute('class');
     if(clase=='modal fade'){
-        const alertas = document.querySelectorAll('#alertas');
-        const servicios = document.querySelectorAll('#servicios');
-        const graficos = document.querySelectorAll('#areaChart');
-        alertas.forEach((ele)=>{
-            ele.innerHTML='';
-        });
-        servicios.forEach((ele)=>{
-            ele.innerHTML='';
-        });
-        graficos.forEach((ele)=>{
-            ele.innerHTML='<canvas class="chartjs-render-monitor graph"></canvas>';
-        })
+        for(let x=1; x<9; x++){
+            let alertas = document.querySelector('#alertas'+x);
+            let servicios = document.querySelector('#servicios'+x);
+            let graficos = document.querySelector('#areaChart-'+x);
+            alertas.innerHTML = '';
+            servicios.innerHTML = '';
+            graficos.innerHTML = '<canvas id="chart-'+x+'" class="chartjs-render-monitor graph"></canvas>';
+        }
     }
-    //console.log(alertas, servicios, graficos);
 })
 
 
