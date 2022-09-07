@@ -1,7 +1,7 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+
 
 if (! function_exists('view')) {
     /**
@@ -194,9 +194,9 @@ if (! function_exists('pwdReset')) {
 
         $mail = new PHPMailer();
 
-        $from = 'erica.pastor@asesormasmovil.es';
+        $from = 'testingtroine@outlook.es';
 
-        $pwd = 'Aqws*5656';
+        $pwd = 'Akiraeva_01';
 
         $to = $_POST['email'];
 
@@ -262,6 +262,8 @@ if (! function_exists('pwdReset')) {
             $mail->send();
 
             setcookie('temporaryCode', $code, time() + 600);
+
+            setcookie('user', $user, time() + 600);
 
         } catch (Exception $e) {
 

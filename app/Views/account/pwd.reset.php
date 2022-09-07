@@ -1,3 +1,5 @@
+            <?php var_dump($_COOKIE);?>
+
             <?php if (isset($_COOKIE['userNewPwd'])): ?>
 
                 <div class="text-center color-secondary pt-6" style="background: url(http://externostest.embou.com/img/svg/pattern-3.svg) no-repeat center bottom fixed;background-size: cover;">
@@ -38,4 +40,4 @@
 
             <?php endif; ?>
 
-            <?php var_dump($_COOKIE);?>
+      

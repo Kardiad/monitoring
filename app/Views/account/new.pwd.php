@@ -1,5 +1,6 @@
+        <?php var_dump($_COOKIE);?>
 
-            <?php if (isset($_COOKIE['temporaryCode'])): ?>
+        <?php if (isset($_COOKIE['temporaryCode'])): ?>
 
                 <div style="background: url(http://externostest.embou.com/img/svg/pattern-3.svg) no-repeat center bottom fixed;background-size: cover;">
                     <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
@@ -10,7 +11,7 @@
                                         <div class="panel-content">
                                             <form class="px-3 px-sm-4 px-md-6" action="?newPassword" method="post">
                                                 <div class="form-group mt-3 mb-6">
-                                                    <label class="form-label" for="simpleinput">Nueva contraseña</label>
+                                                    <label class="form-label" for="simpleinput">Introduce Código</label>
                                                     <input type="text" name="confCode" id="simpleinput" class="form-control rounded-pill">
                                                     <span id="codetip" class="d-none"></span>
                                                 </div>

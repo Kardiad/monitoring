@@ -39,11 +39,12 @@ class Account extends BaseController {
 
     public function pwdReset() {
 
-        setcookie('temporaryCode', null, -1);
+        if(isset($_COOKIE['userNewPwd'])){
+            
+            setcookie('userNewPwd', null, time()+60);
 
-        if (loggedIn()) {
-
-        } else if (isset($_POST['username']) && isset($_POST['email'])) {
+        }
+        if (isset($_POST['username']) && isset($_POST['email'])) {
     
             $username = $this->validate($_POST['username']);
     
@@ -59,19 +60,23 @@ class Account extends BaseController {
             
         template('account/pwd.reset', ['currentPage' => 'pwdReset']);
 
+        if (isset($_COOKIE['userNewPwd'])){
+            
+            setcookie('userNewPwd', null, time()-60);
+
+        }
+
     }
 
     public function newPassword() {
 
-        if (isset($_POST['confCode'])) {
+        $codigo = $_POST['code'];
 
-            $confCode = $_POST['confCode'];
+        if ($_COOKIE['temporaryCode'] === $codigo) {
 
-            if ($_COOKIE['temporaryCode'] === $confCode) {
+                setcookie('temporaryCode', null, time()-60);
 
-                setcookie('temporaryCode', null, -1);
-
-            }
+                template('account/new.pwd', ['title' => 'pwdReset']);
 
         } else if (isset($_POST['pwd1']) && isset($_POST['pwd2'])) {
 
@@ -81,18 +86,22 @@ class Account extends BaseController {
 
             if ($pwd === $newpwd) {
 
-                // model(User::class)->updatePwd($pwd);
-                // metodo por escribir
+                $user = $_COOKIE['user'];
 
-                echo 'hey!';
-
+                model(User::class)->updatePass([$pwd, $user]);
+                
+                setcookie('user', null, time()-60);
+                
                 return $this->login();
 
             }
 
+        }else{
+
+            template('account/new.pwd', ['title' => 'pwdReset']);
+
         }
 
-        template('account/new.pwd', ['title' => 'pwdReset']);
 
     }
 
@@ -106,4 +115,4 @@ class Account extends BaseController {
 
     }
 
-}
+}   

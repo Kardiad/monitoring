@@ -29,7 +29,16 @@ class Monitoring extends Basecontroller {
         
         $this->graficaServicios();
 
-        template('main.content/monitoring', ['currentPage' => 'monitoring']);
+        if(loggedIn()){
+            
+            template('main.content/monitoring', ['currentPage' => 'monitoring']);
+
+        }else{
+
+            template('account/login', ['currentPage' => 'login']);
+
+        }
+
 
     }
 

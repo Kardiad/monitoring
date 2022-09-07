@@ -10,12 +10,27 @@ class User extends BaseModel {
 
     protected $allowedFields = ['username', 'pwd'];
 
-    public function getUser($username, $pass) {
+    public function getUser($params) {
 
         $sql = $this->sqlea([], $this->table, " username =  ? AND pwd = ? ;", [], "select");
 
-        return $this->prepare($sql, [$username, $pass]);
+        return $this->prepare($sql, $params);
 
+    }
+
+    public function getUserByEmail($params){
+
+        $sql = $this->sqlea([], $this->table, "username = ? AND email = ?;", [], "select");
+
+        return $this->prepare($sql, $params);
+    }
+
+
+    public function updatePass($params){
+
+        $sql = $this->sqlea(["pwd"], $this->table, " username = ? ", [], "update");
+
+        return $this->prepare($sql, $params);
     }
 
 }
