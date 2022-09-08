@@ -1,4 +1,14 @@
+                <?php
+                if(isset($_SESSION['email']) && isset($_SESSION['codigo']) && isset($_SESSION['enviado'])){
+                    
+                    unset($_SESSION['email']);
+    
+                    unset($_SESSION['codigo']);
+    
+                    unset($_SESSION['enviado']);
+                }
                 
+                ?>                               
                 <div style="background: url(http://externostest.embou.com/img/svg/pattern-3.svg) no-repeat center bottom fixed;background-size: cover;">
                     <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
                         <div class="row justify-content-between px-6 mx-6">

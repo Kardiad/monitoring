@@ -188,9 +188,9 @@ if (! function_exists('generateCode')) {
 }
 
 
-if (! function_exists('pwdReset')) {
+if (! function_exists('pwdResetMail')) {
 
-    function pwdReset() {
+    function pwdResetMail() {
 
         $mail = new PHPMailer();
 
@@ -251,7 +251,7 @@ if (! function_exists('pwdReset')) {
             </head>
             <body>
                 <h1>Hola, $user</h1>
-                <p>Copia y pega <a href='http://localhost/monitoring/?newPassword&code=$code'>aquí</a> el siguiente codigo:</p>
+                <p>Copia y pega <a href='http://localhost/monitoring/?newPassword&code=$code&email=$to'>aquí</a> el siguiente codigo:</p>
                 <h3 class>$code</h3>
             </body>
             </html>
@@ -260,10 +260,6 @@ if (! function_exists('pwdReset')) {
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
-
-            setcookie('temporaryCode', $code, time() + 600);
-
-            setcookie('user', $user, time() + 600);
 
         } catch (Exception $e) {
 

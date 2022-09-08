@@ -28,7 +28,7 @@ class User extends BaseModel {
 
     public function updatePass($params){
 
-        $sql = $this->sqlea(["pwd"], $this->table, " username = ? ", [], "update");
+        $sql = $this->sqlea(["pwd"], $this->table, " email = ? ", [], "update");
 
         return $this->prepare($sql, $params);
     }
