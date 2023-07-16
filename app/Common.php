@@ -196,7 +196,7 @@ if (! function_exists('pwdResetMail')) {
 
         $from = 'testingtroine@outlook.es';
 
-        $pwd = 'Akiraeva_01';
+        $pwd = 'asdasdasdad';
 
         $to = $_POST['email'];
 
